@@ -23,6 +23,7 @@ class DonationForm extends ConsumerWidget {
             vertical: 20,
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextField(
                 decoration: const InputDecoration(labelText: 'Full Name'),
@@ -41,16 +42,18 @@ class DonationForm extends ConsumerWidget {
               buildHeight(15.0),
               const DropdownModel(),
               buildHeight(30.0),
-              ContainerButton(
-                  text: "Submit",
-                  onTap: () {
-                    print(
-                        "Name - ${donationForm.name} \nPhone Number - ${donationForm.number} \nDonation Amount - ${donationForm.donationAmt} \nPlace - ${ref.watch(dropdownChangeProvider).selectedCat}");
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Payments()));
-                  })
+              Center(
+                child: ContainerButton(
+                    text: "Submit",
+                    onTap: () {
+                      print(
+                          "Name - ${donationForm.name} \nPhone Number - ${donationForm.number} \nDonation Amount - ${donationForm.donationAmt} \nPlace - ${ref.watch(dropdownChangeProvider).selectedCat}");
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Payments()));
+                    }),
+              )
             ],
           ),
         ),
