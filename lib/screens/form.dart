@@ -15,6 +15,9 @@ class DonationForm extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final donationForm = ref.read(donationFormProvider);
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Donation Form"),
+      ),
       body: SafeArea(
           child: SingleChildScrollView(
         child: Padding(
@@ -39,7 +42,7 @@ class DonationForm extends ConsumerWidget {
                 decoration: const InputDecoration(labelText: 'Donation Amount'),
                 onChanged: (value) => donationForm.donationAmt = value,
               ),
-              buildHeight(15.0),
+              buildHeight(20.0),
               const DropdownModel(),
               buildHeight(30.0),
               Center(
