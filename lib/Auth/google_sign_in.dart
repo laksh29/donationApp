@@ -49,11 +49,3 @@ class GoogleAuth {
     }
   }
 }
-
-final authenticationProvider = Provider<GoogleAuth>((ref) => GoogleAuth());
-
-final authStateProvider =
-    StreamProvider<User?>((ref) => ref.read(authenticationProvider).authState);
-
-final firebaseAuthProvider =
-    Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);

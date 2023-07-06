@@ -1,11 +1,10 @@
-import 'package:donationsapp/Auth/google_sign_in.dart';
-import 'package:donationsapp/screens/login_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 import '../const.dart';
 import '../model/button_model.dart';
+import '../providers/auth_providers.dart';
+import 'login_ui.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});

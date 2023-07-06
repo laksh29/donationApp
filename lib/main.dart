@@ -1,10 +1,9 @@
-import 'package:donationsapp/Auth/google_sign_in.dart';
 import 'package:donationsapp/screens/bottom_nav.dart';
-import 'package:donationsapp/screens/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'providers/auth_providers.dart';
 import 'screens/login_ui.dart';
 import 'firebase_options.dart';
 
