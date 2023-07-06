@@ -1,6 +1,8 @@
 import 'package:donationsapp/const.dart';
 import 'package:donationsapp/model/button_model.dart';
+import 'package:donationsapp/model/dropdown_model.dart';
 import 'package:donationsapp/model/form_model.dart';
+import 'package:donationsapp/providers/dropdown_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -36,12 +38,14 @@ class DonationForm extends ConsumerWidget {
                 decoration: const InputDecoration(labelText: 'Donation Amount'),
                 onChanged: (value) => donationForm.donationAmt = value,
               ),
+              buildHeight(15.0),
+              const DropdownModel(),
               buildHeight(30.0),
               ContainerButton(
                   text: "Submit",
                   onTap: () {
                     print(
-                        "Name - ${donationForm.name} \nPhone Number - ${donationForm.number} \nDonation Amount - ${donationForm.donationAmt}");
+                        "Name - ${donationForm.name} \nPhone Number - ${donationForm.number} \nDonation Amount - ${donationForm.donationAmt} \nPlace - ${ref.watch(dropdownChangeProvider).selectedCat}");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
