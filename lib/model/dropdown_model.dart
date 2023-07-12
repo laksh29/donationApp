@@ -10,7 +10,7 @@ class DropdownModel extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selected = ref.watch(dropdownChangeProvider).selectedCat;
     return DropdownButton(
-      hint: const Text("Choose any one!"),
+      hint: const Text("Select a place of donation"),
       value: selected,
       items: <String>[
         "Item 1",
