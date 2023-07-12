@@ -70,15 +70,24 @@ class DonationForm extends ConsumerWidget {
                 buildHeight(30.0),
                 Center(
                   child: ContainerButton(
-                      text: "Submit",
+                      text: "Proceed to Payment",
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
-                          print(
-                              "Name - ${donationForm.name} \nPhone Number - ${donationForm.number} \nDonation Amount - ${donationForm.donationAmt} \nPlace - ${ref.watch(dropdownChangeProvider).selectedCat}");
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Payments()));
+                          if (isDropdownSelected(
+                              ref.watch(dropdownChangeProvider).selectedCat)) {
+                            print(
+                                "Name - ${donationForm.name} \nPhone Number - ${donationForm.number} \nDonation Amount - ${donationForm.donationAmt} \nPlace - ${ref.watch(dropdownChangeProvider).selectedCat}");
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Payments()));
+                          } else {
+                            SnackBar snackBar = const SnackBar(
+                                content: Text(
+                                    "Please select a place you want to make the donation to"));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
                         }
                       }),
                 )
