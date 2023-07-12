@@ -1,3 +1,5 @@
+import '../providers/dropdown_providers.dart';
+
 bool isPhoneNumber(String number) {
   if (number.length > 10 || number.length < 10) {
     return false;
@@ -15,6 +17,13 @@ bool isDonationAmt(String donation) {
     }
   } catch (e) {
     return false;
+  }
+  return false;
+}
+
+bool isDropdownSelected(String? selected) {
+  if (selected != null) {
+    return true;
   }
   return false;
 }
