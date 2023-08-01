@@ -1,5 +1,3 @@
-import '../providers/dropdown_providers.dart';
-
 bool isPhoneNumber(String number) {
   if (number.length > 10 || number.length < 10) {
     return false;
