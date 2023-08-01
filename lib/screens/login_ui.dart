@@ -1,7 +1,7 @@
 import 'package:donationsapp/model/button_model.dart';
 import 'package:flutter/material.dart';
 
-import '../Auth/google_sign_in.dart';
+import '../Services/google_sign_in.dart';
 
 class LoginUi extends StatelessWidget {
   const LoginUi({super.key});
