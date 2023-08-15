@@ -3,11 +3,13 @@ import 'package:donationsapp/model/button_model.dart';
 import 'package:donationsapp/model/dropdown_model.dart';
 import 'package:donationsapp/model/form_model.dart';
 import 'package:donationsapp/providers/dropdown_providers.dart';
+import 'package:donationsapp/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../Services/firestore.dart';
 import '../model/validate_model.dart';
-import 'payment.dart';
+import 'bottom_nav.dart';
 
 class DonationForm extends ConsumerWidget {
   const DonationForm({super.key});
@@ -15,7 +17,7 @@ class DonationForm extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final donationForm = ref.read(donationFormProvider);
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Donation Form"),
@@ -28,7 +30,7 @@ class DonationForm extends ConsumerWidget {
             vertical: 20,
           ),
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -68,19 +70,32 @@ class DonationForm extends ConsumerWidget {
                 buildHeight(20.0),
                 const DropdownModel(),
                 buildHeight(30.0),
+                // submit button
                 Center(
                   child: ContainerButton(
                       text: "Proceed to Payment",
                       onTap: () {
-                        if (_formKey.currentState!.validate()) {
+                        if (formKey.currentState!.validate()) {
                           if (isDropdownSelected(
                               ref.watch(dropdownChangeProvider).selectedCat)) {
+                            final donationPlace =
+                                ref.watch(dropdownChangeProvider).selectedCat;
+                            donarDetails(
+                              name: donationForm.name,
+                              phoneNumber: donationForm.number,
+                              // address:
+                              donationAmount: donationForm.donationAmt,
+                              donationPlace: donationPlace,
+                              photoURL: donationForm.photoURL,
+                            );
                             print(
-                                "Name - ${donationForm.name} \nPhone Number - ${donationForm.number} \nDonation Amount - ${donationForm.donationAmt} \nPlace - ${ref.watch(dropdownChangeProvider).selectedCat}");
-                            Navigator.push(
+                                "Name - ${donationForm.name} \nPhone Number - ${donationForm.number} \nDonation Amount - ${donationForm.donationAmt} \nPlace - $donationPlace");
+                            Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Payments()));
+                                  builder: (context) => const BottomNav(),
+                                ),
+                                (route) => false);
                           } else {
                             SnackBar snackBar = const SnackBar(
                                 content: Text(
