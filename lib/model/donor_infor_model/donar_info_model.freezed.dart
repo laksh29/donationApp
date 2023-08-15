@@ -21,11 +21,11 @@ DonorInfo _$DonorInfoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$DonorInfo {
   String get name => throw _privateConstructorUsedError;
-  int get phoneNumber => throw _privateConstructorUsedError;
-  String get address => throw _privateConstructorUsedError;
-  int get donationAmount => throw _privateConstructorUsedError;
+  String get phoneNumber => throw _privateConstructorUsedError;
+  String? get address => throw _privateConstructorUsedError;
+  String get donationAmount => throw _privateConstructorUsedError;
   String get donationPlace => throw _privateConstructorUsedError;
-  String get photoURL => throw _privateConstructorUsedError;
+  String? get photoURL => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,11 +40,11 @@ abstract class $DonorInfoCopyWith<$Res> {
   @useResult
   $Res call(
       {String name,
-      int phoneNumber,
-      String address,
-      int donationAmount,
+      String phoneNumber,
+      String? address,
+      String donationAmount,
       String donationPlace,
-      String photoURL});
+      String? photoURL});
 }
 
 /// @nodoc
@@ -62,10 +62,10 @@ class _$DonorInfoCopyWithImpl<$Res, $Val extends DonorInfo>
   $Res call({
     Object? name = null,
     Object? phoneNumber = null,
-    Object? address = null,
+    Object? address = freezed,
     Object? donationAmount = null,
     Object? donationPlace = null,
-    Object? photoURL = null,
+    Object? photoURL = freezed,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -75,23 +75,23 @@ class _$DonorInfoCopyWithImpl<$Res, $Val extends DonorInfo>
       phoneNumber: null == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as int,
-      address: null == address
+              as String,
+      address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       donationAmount: null == donationAmount
           ? _value.donationAmount
           : donationAmount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       donationPlace: null == donationPlace
           ? _value.donationPlace
           : donationPlace // ignore: cast_nullable_to_non_nullable
               as String,
-      photoURL: null == photoURL
+      photoURL: freezed == photoURL
           ? _value.photoURL
           : photoURL // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -105,11 +105,11 @@ abstract class _$$_DonorInfoCopyWith<$Res> implements $DonorInfoCopyWith<$Res> {
   @useResult
   $Res call(
       {String name,
-      int phoneNumber,
-      String address,
-      int donationAmount,
+      String phoneNumber,
+      String? address,
+      String donationAmount,
       String donationPlace,
-      String photoURL});
+      String? photoURL});
 }
 
 /// @nodoc
@@ -125,10 +125,10 @@ class __$$_DonorInfoCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? phoneNumber = null,
-    Object? address = null,
+    Object? address = freezed,
     Object? donationAmount = null,
     Object? donationPlace = null,
-    Object? photoURL = null,
+    Object? photoURL = freezed,
   }) {
     return _then(_$_DonorInfo(
       name: null == name
@@ -138,23 +138,23 @@ class __$$_DonorInfoCopyWithImpl<$Res>
       phoneNumber: null == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as int,
-      address: null == address
+              as String,
+      address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       donationAmount: null == donationAmount
           ? _value.donationAmount
           : donationAmount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       donationPlace: null == donationPlace
           ? _value.donationPlace
           : donationPlace // ignore: cast_nullable_to_non_nullable
               as String,
-      photoURL: null == photoURL
+      photoURL: freezed == photoURL
           ? _value.photoURL
           : photoURL // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -165,10 +165,10 @@ class _$_DonorInfo with DiagnosticableTreeMixin implements _DonorInfo {
   const _$_DonorInfo(
       {required this.name,
       required this.phoneNumber,
-      required this.address,
+      this.address,
       required this.donationAmount,
       required this.donationPlace,
-      required this.photoURL});
+      this.photoURL});
 
   factory _$_DonorInfo.fromJson(Map<String, dynamic> json) =>
       _$$_DonorInfoFromJson(json);
@@ -176,15 +176,15 @@ class _$_DonorInfo with DiagnosticableTreeMixin implements _DonorInfo {
   @override
   final String name;
   @override
-  final int phoneNumber;
+  final String phoneNumber;
   @override
-  final String address;
+  final String? address;
   @override
-  final int donationAmount;
+  final String donationAmount;
   @override
   final String donationPlace;
   @override
-  final String photoURL;
+  final String? photoURL;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -243,11 +243,11 @@ class _$_DonorInfo with DiagnosticableTreeMixin implements _DonorInfo {
 abstract class _DonorInfo implements DonorInfo {
   const factory _DonorInfo(
       {required final String name,
-      required final int phoneNumber,
-      required final String address,
-      required final int donationAmount,
+      required final String phoneNumber,
+      final String? address,
+      required final String donationAmount,
       required final String donationPlace,
-      required final String photoURL}) = _$_DonorInfo;
+      final String? photoURL}) = _$_DonorInfo;
 
   factory _DonorInfo.fromJson(Map<String, dynamic> json) =
       _$_DonorInfo.fromJson;
@@ -255,15 +255,15 @@ abstract class _DonorInfo implements DonorInfo {
   @override
   String get name;
   @override
-  int get phoneNumber;
+  String get phoneNumber;
   @override
-  String get address;
+  String? get address;
   @override
-  int get donationAmount;
+  String get donationAmount;
   @override
   String get donationPlace;
   @override
-  String get photoURL;
+  String? get photoURL;
   @override
   @JsonKey(ignore: true)
   _$$_DonorInfoCopyWith<_$_DonorInfo> get copyWith =>

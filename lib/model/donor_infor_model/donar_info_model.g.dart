@@ -8,11 +8,11 @@ part of 'donar_info_model.dart';
 
 _$_DonorInfo _$$_DonorInfoFromJson(Map<String, dynamic> json) => _$_DonorInfo(
       name: json['name'] as String,
-      phoneNumber: json['phoneNumber'] as int,
-      address: json['address'] as String,
-      donationAmount: json['donationAmount'] as int,
+      phoneNumber: json['phoneNumber'] as String,
+      address: json['address'] as String?,
+      donationAmount: json['donationAmount'] as String,
       donationPlace: json['donationPlace'] as String,
-      photoURL: json['photoURL'] as String,
+      photoURL: json['photoURL'] as String?,
     );
 
 Map<String, dynamic> _$$_DonorInfoToJson(_$_DonorInfo instance) =>
