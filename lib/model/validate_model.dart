@@ -18,3 +18,10 @@ bool isDonationAmt(String donation) {
   }
   return false;
 }
+
+bool isDropdownSelected(String? selected) {
+  if (selected != null) {
+    return true;
+  }
+  return false;
+}
