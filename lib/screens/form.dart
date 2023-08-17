@@ -5,6 +5,7 @@ import 'package:donationsapp/model/form_model.dart';
 import 'package:donationsapp/providers/dropdown_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 import '../Services/firestore.dart';
@@ -23,8 +24,7 @@ class DonationForm extends ConsumerWidget {
     * 2. Error Description
     * 3. Metadata
     * */
-      showAlertDialog(context, "Payment Failed",
-          "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
+      showAlertDialog(context, "Payment Failed", "${response.message}");
     }
 
     void handlePaymentSuccessResponse(PaymentSuccessResponse response) {
@@ -125,10 +125,11 @@ class DonationForm extends ConsumerWidget {
                             //     (route) => false);
                             Razorpay razorpay = Razorpay();
                             var options = {
-                              "key": "kYLuIIxr4OzboCK22U8EdHwC",
-                              "amount": 100,
+                              // "key": "kYLuIIxr4OzboCK22U8EdHwC",
+                              "key": "rzp_live_ILgsfZCZoFIKMb",
+                              "amount": int.parse(donationForm.donationAmt),
                               "name": "Daan Dharam",
-                              "description": "Donation $donationPlace",
+                              "description": "Donation to $donationPlace",
                               "retry": {
                                 "enabled": true,
                                 'max_count': 1,
@@ -139,7 +140,7 @@ class DonationForm extends ConsumerWidget {
                                 'email': 'lakshjain515@gmail.com',
                               },
                               'external': {
-                                'wallets': ['paytm', 'phonepe', 'googlepay']
+                                'wallets': ['paytm']
                               },
                             };
 
@@ -160,6 +161,14 @@ class DonationForm extends ConsumerWidget {
                           }
                         }
                       }),
+                ),
+                buildHeight(10.0),
+                Center(
+                  child: Text(
+                    "Do Not Make Any Paymets!\nIt is a trial session to check the flow",
+                    style: GoogleFonts.poppins(fontSize: 10),
+                    textAlign: TextAlign.center,
+                  ),
                 )
               ],
             ),
@@ -174,7 +183,9 @@ void showAlertDialog(BuildContext context, String title, String message) {
   // set up the buttons
   Widget continueButton = ElevatedButton(
     child: const Text("Continue"),
-    onPressed: () {},
+    onPressed: () {
+      Navigator.pop(context);
+    },
   );
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
