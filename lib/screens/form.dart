@@ -5,6 +5,8 @@ import 'package:donationsapp/model/form_model.dart';
 import 'package:donationsapp/providers/dropdown_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 import '../Services/firestore.dart';
 import '../model/validate_model.dart';
@@ -15,6 +17,32 @@ class DonationForm extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    void handlePaymentErrorResponse(PaymentFailureResponse response) {
+      /*
+    * PaymentFailureResponse contains three values:
+    * 1. Error Code
+    * 2. Error Description
+    * 3. Metadata
+    * */
+      showAlertDialog(context, "Payment Failed", "${response.message}");
+    }
+
+    void handlePaymentSuccessResponse(PaymentSuccessResponse response) {
+      /*
+    * Payment Success Response contains three values:
+    * 1. Order ID
+    * 2. Payment ID
+    * 3. Signature
+    * */
+      showAlertDialog(
+          context, "Payment Successful", "Payment ID: ${response.paymentId}");
+    }
+
+    void handleExternalWalletSelected(ExternalWalletResponse response) {
+      showAlertDialog(
+          context, "External Wallet Selected", "${response.walletName}");
+    }
+
     final donationForm = ref.read(donationFormProvider);
     final formKey = GlobalKey<FormState>();
     return Scaffold(
@@ -89,12 +117,41 @@ class DonationForm extends ConsumerWidget {
                             );
                             print(
                                 "Name - ${donationForm.name} \nPhone Number - ${donationForm.number} \nDonation Amount - ${donationForm.donationAmt} \nPlace - $donationPlace");
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const BottomNav(),
-                                ),
-                                (route) => false);
+                            // Navigator.pushAndRemoveUntil(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //       builder: (context) => const BottomNav(),
+                            //     ),
+                            //     (route) => false);
+                            Razorpay razorpay = Razorpay();
+                            var options = {
+                              // "key": "kYLuIIxr4OzboCK22U8EdHwC",
+                              "key": "rzp_live_ILgsfZCZoFIKMb",
+                              "amount": int.parse(donationForm.donationAmt),
+                              "name": "Daan Dharam",
+                              "description": "Donation to $donationPlace",
+                              "retry": {
+                                "enabled": true,
+                                'max_count': 1,
+                              },
+                              "send_sms_hash": true,
+                              'prefill': {
+                                'contact': donationForm.number,
+                                'email': 'lakshjain515@gmail.com',
+                              },
+                              'external': {
+                                'wallets': ['paytm']
+                              },
+                            };
+
+                            razorpay.on(Razorpay.EVENT_PAYMENT_ERROR,
+                                handlePaymentErrorResponse);
+                            razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
+                                handlePaymentSuccessResponse);
+                            razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
+                                handleExternalWalletSelected);
+
+                            razorpay.open(options);
                           } else {
                             SnackBar snackBar = const SnackBar(
                                 content: Text(
@@ -104,6 +161,14 @@ class DonationForm extends ConsumerWidget {
                           }
                         }
                       }),
+                ),
+                buildHeight(10.0),
+                Center(
+                  child: Text(
+                    "Do Not Make Any Paymets!\nIt is a trial session to check the flow",
+                    style: GoogleFonts.poppins(fontSize: 10),
+                    textAlign: TextAlign.center,
+                  ),
                 )
               ],
             ),
@@ -112,4 +177,29 @@ class DonationForm extends ConsumerWidget {
       )),
     );
   }
+}
+
+void showAlertDialog(BuildContext context, String title, String message) {
+  // set up the buttons
+  Widget continueButton = ElevatedButton(
+    child: const Text("Continue"),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  );
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text(title),
+    content: Text(message),
+    actions: [
+      continueButton,
+    ],
+  );
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
