@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:donationsapp/screens/profile_page.dart';
+import 'package:donationsapp/templates/font_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../const.dart';
 import '../providers/auth_providers.dart';
@@ -17,15 +18,19 @@ class HomeScreen extends ConsumerWidget {
         // title: Text("${user!.displayName}"),
         title: Text(
           "Daan Dharam",
-          style: GoogleFonts.poppins(
-            fontWeight: FontWeight.bold,
-            fontStyle: FontStyle.italic,
-          ),
+          style: daanDharam(true),
         ),
         actions: [
-          CircleAvatar(
-            radius: 20.0,
-            backgroundImage: NetworkImage("${user!.photoURL}"),
+          GestureDetector(
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProfilePage(),
+                )),
+            child: CircleAvatar(
+              radius: 20.0,
+              backgroundImage: NetworkImage("${user!.photoURL}"),
+            ),
           ),
           buildWidth(20.0),
         ],

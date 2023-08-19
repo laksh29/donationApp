@@ -1,5 +1,5 @@
 import 'package:donationsapp/const.dart';
-import 'package:donationsapp/model/button_model.dart';
+import 'package:donationsapp/templates/container_button.dart';
 import 'package:donationsapp/model/dropdown_model.dart';
 import 'package:donationsapp/model/form_model.dart';
 import 'package:donationsapp/providers/dropdown_providers.dart';
@@ -10,7 +10,7 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 import '../Services/firestore.dart';
 import '../model/validate_model.dart';
-import 'bottom_nav.dart';
+import '../templates/show_alert_dialog.dart';
 
 class DonationForm extends ConsumerWidget {
   const DonationForm({super.key});
@@ -24,7 +24,7 @@ class DonationForm extends ConsumerWidget {
     * 2. Error Description
     * 3. Metadata
     * */
-      showAlertDialog(context, "Payment Failed", "${response.message}");
+      showAlertDialog(context, "Payment Failed", "${response.message}", null);
     }
 
     void handlePaymentSuccessResponse(PaymentSuccessResponse response) {
@@ -34,13 +34,13 @@ class DonationForm extends ConsumerWidget {
     * 2. Payment ID
     * 3. Signature
     * */
-      showAlertDialog(
-          context, "Payment Successful", "Payment ID: ${response.paymentId}");
+      showAlertDialog(context, "Payment Successful",
+          "Payment ID: ${response.paymentId}", null);
     }
 
     void handleExternalWalletSelected(ExternalWalletResponse response) {
       showAlertDialog(
-          context, "External Wallet Selected", "${response.walletName}");
+          context, "External Wallet Selected", "${response.walletName}", null);
     }
 
     final donationForm = ref.read(donationFormProvider);
@@ -177,29 +177,4 @@ class DonationForm extends ConsumerWidget {
       )),
     );
   }
-}
-
-void showAlertDialog(BuildContext context, String title, String message) {
-  // set up the buttons
-  Widget continueButton = ElevatedButton(
-    child: const Text("Continue"),
-    onPressed: () {
-      Navigator.pop(context);
-    },
-  );
-  // set up the AlertDialog
-  AlertDialog alert = AlertDialog(
-    title: Text(title),
-    content: Text(message),
-    actions: [
-      continueButton,
-    ],
-  );
-  // show the dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
 }
