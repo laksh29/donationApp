@@ -1,6 +1,6 @@
 # donationsapp
 
-It is an appplication for people to support Jain organizations sitting at the comfort of thier home. 
+It is an application for people to support Jain organizations sitting in the comfort of their homes. 
 
 Jain organizations like:
 - Temples
@@ -12,4 +12,5 @@ Jain organizations like:
 ## Tech Stack
 - Flutter
 - Firebase Authentication
-- Firestore Databsse
+- Firestore Database
+- Razorpay Integration
