@@ -1,5 +1,5 @@
 import 'package:donationsapp/const.dart';
-import 'package:donationsapp/model/button_model.dart';
+import 'package:donationsapp/templates/container_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
